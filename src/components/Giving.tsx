@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import '../styles/giving.css'
-import { fadeUp, slideLeft, slideRight, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
+import { fadeUp, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
 const mobileMoney = [
   { network: 'MTN Mobile Money', number: '024 000 0000', name: 'Christian Awareness Embassy' },

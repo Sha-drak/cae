@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import '../styles/sermons.css'
-import { fadeUp, fadeIn, slideLeft, slideRight, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
+import { fadeUp, fadeIn, slideLeft, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
 const featuredSermon = {
   youtubeId: 'dQw4w9WgXcQ',

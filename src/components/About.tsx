@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import '../styles/about.css'
 import hero3 from '../media/hero/hero3.webp'
-import { fadeUp, fadeIn, slideLeft, slideRight, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
+import { fadeUp, slideLeft, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
 export default function About() {
   return (
