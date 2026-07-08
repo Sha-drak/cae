@@ -1,0 +1,206 @@
+:root {
+  font-family: Inter, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1a1410;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Design tokens */
+  --clr-bg: #ffffff;
+  --clr-bg-soft: #fdf8f4;
+  --clr-bg-muted: #f7efe8;
+  --clr-dark: #6b0f1a;          /* Maroon */
+  --clr-dark-deep: #4a0a12;     /* Deep maroon for hover */
+  --clr-text: #1a0508;
+  --clr-text-muted: #7a5560;
+  --clr-gold: #c9a84c;
+  --clr-gold-light: #f3e7c9;
+  --clr-border: #edd9cc;
+  --radius-card: 1.25rem;
+  --radius-btn: 999px;
+  --shadow-card: 0 4px 32px rgba(107,15,26,0.07);
+  --shadow-card-hover: 0 12px 48px rgba(107,15,26,0.13);
+  --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --max-w: 1120px;
+  --section-py: 6rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #app {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+}
+
+body, button, a, input, textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Global section utility */
+.section {
+  padding: var(--section-py) 1.5rem;
+}
+
+.section--dark {
+  background: var(--clr-dark);
+  color: #ffffff;
+}
+
+.section--soft {
+  background: var(--clr-bg-soft);
+}
+
+.section--muted {
+  background: var(--clr-bg-muted);
+}
+
+.section__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* Section header */
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header--center {
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--clr-dark);
+}
+
+.section--dark .section-title {
+  color: #ffffff;
+}
+
+.section-subtitle {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  max-width: 52ch;
+  line-height: 1.65;
+}
+
+.section--dark .section-subtitle {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Global button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-btn);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--dark {
+  background: var(--clr-dark);
+  color: #ffffff;
+}
+
+.btn--dark:hover {
+  background: var(--clr-dark-deep);
+  box-shadow: 0 8px 24px rgba(107,15,26,0.28);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--clr-dark);
+  border: 1.5px solid var(--clr-dark);
+}
+
+.btn--outline:hover {
+  background: var(--clr-dark);
+  color: #ffffff;
+}
+
+.btn--outline-light {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btn--outline-light:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+/* Glass button — for use on light backgrounds */
+.btn--glass {
+  background: rgba(107, 15, 26, 0.06);
+  color: var(--clr-dark);
+  border: 1px solid rgba(107, 15, 26, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btn--glass:hover {
+  background: rgba(107, 15, 26, 0.12);
+  border-color: rgba(107, 15, 26, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn--gold {
+  background: var(--clr-gold);
+  color: #fff;
+}
+
+.btn--gold:hover {
+  background: #b8913e;
+  box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+}
+
+.hero-shell {
+  background: var(--clr-bg);
+}

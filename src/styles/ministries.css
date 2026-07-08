@@ -1,0 +1,90 @@
+.ministries {
+  padding: var(--section-py) 1.5rem;
+}
+
+.ministries__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Card ── */
+.ministries__card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: background var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.ministries__card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-3px);
+}
+
+.ministries__card-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.ministries__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.ministries__card-tagline {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+}
+
+.ministries__card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.ministries__card-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  margin-top: 0.25rem;
+  flex: 1;
+}
+
+.ministries__card-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--clr-gold);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.ministries__card-cta:hover {
+  opacity: 0.75;
+}
+
+/* ── Responsive ── */
+@media (max-width: 980px) {
+  .ministries__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ministries__grid {
+    grid-template-columns: 1fr;
+  }
+}

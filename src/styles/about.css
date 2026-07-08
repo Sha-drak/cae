@@ -1,0 +1,160 @@
+.about {
+  background: var(--clr-bg);
+  padding: calc(var(--section-py) + 5rem) 1.5rem var(--section-py);
+}
+
+/* ── Top split ── */
+.about__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.about__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about__intro .section-subtitle {
+  margin-top: 1.25rem;
+  max-width: 46ch;
+}
+
+.about__cta-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+/* ── Mission cards ── */
+.about__mission-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.about__mission-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(107, 15, 26, 0.1);
+  border-radius: var(--radius-card);
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(107,15,26,0.06);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.about__mission-card:hover {
+  box-shadow: 0 8px 40px rgba(107,15,26,0.12);
+  transform: translateY(-2px);
+}
+
+.about__mission-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.75rem;
+}
+
+.about__mission-text {
+  font-size: 1rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+/* ── Pastor section ── */
+.about__pastor {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 0;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(107, 15, 26, 0.1);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(107,15,26,0.1);
+}
+
+.about__pastor-img-wrap {
+  height: 420px;
+  background: var(--clr-bg-muted);
+  overflow: hidden;
+}
+
+.about__pastor-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.about__pastor-content {
+  padding: 2.5rem 3rem 2.5rem 2.5rem;
+}
+
+.about__pastor-quote {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--clr-text);
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--clr-gold);
+}
+
+.about__pastor-name {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.about__pastor-btn {
+  margin-top: 2rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .about__top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about__pastor {
+    grid-template-columns: 1fr;
+  }
+
+  .about__pastor-img-wrap {
+    height: 280px;
+  }
+
+  .about__pastor-content {
+    padding: 2rem 1.75rem 2.5rem 1.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .about__inner {
+    gap: 3.5rem;
+  }
+
+  .about__cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about__pastor-quote {
+    font-size: 1rem;
+  }
+}

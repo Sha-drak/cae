@@ -1,0 +1,135 @@
+.contact {
+  background: var(--clr-bg);
+  padding: var(--section-py) 1.5rem;
+}
+
+.contact__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+/* ── Info cards ── */
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact__info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.4rem 1.6rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(107, 15, 26, 0.08);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(107,15,26,0.05);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.contact__info-card:hover {
+  box-shadow: 0 8px 32px rgba(107,15,26,0.1);
+  transform: translateY(-2px);
+}
+
+.contact__info-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.contact__info-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.4rem;
+}
+
+.contact__info-text {
+  font-size: 0.92rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+.contact__info-text a {
+  color: var(--clr-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.contact__info-text a:hover {
+  color: var(--clr-gold);
+}
+
+/* WhatsApp button */
+.contact__whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.6rem;
+  background: #25d366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.contact__whatsapp:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+}
+
+/* ── Map ── */
+.contact__map-wrap {
+  border-radius: 1.75rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-card-hover);
+  border: 1px solid var(--clr-border);
+}
+
+.contact__map-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 480px;
+  border: none;
+}
+
+.contact__map-note {
+  padding: 0.85rem 1.25rem;
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+  background: var(--clr-bg-soft);
+  border-top: 1px solid var(--clr-border);
+}
+
+.contact__map-note code {
+  background: var(--clr-bg-muted);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.76rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .contact__layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contact__map-wrap iframe {
+    height: 300px;
+  }
+}

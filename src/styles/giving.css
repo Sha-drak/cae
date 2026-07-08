@@ -1,0 +1,170 @@
+.giving {
+  padding: var(--section-py) 1.5rem;
+}
+
+.giving__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ── Message side ── */
+.giving__text {
+  font-size: 1rem;
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-top: 1.25rem;
+}
+
+.giving__text + .giving__text {
+  margin-top: 0.75rem;
+}
+
+.giving__verse {
+  margin-top: 2rem;
+  padding: 1.5rem 1.75rem;
+  border-left: 3px solid var(--clr-gold);
+  background: #fff;
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--clr-text);
+  line-height: 1.65;
+}
+
+.giving__verse cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-gold);
+  letter-spacing: 0.05em;
+}
+
+/* ── Methods side ── */
+.giving__methods {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.giving__block {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(107, 15, 26, 0.08);
+  border-radius: var(--radius-card);
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(107,15,26,0.07);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.giving__block:hover {
+  box-shadow: 0 8px 40px rgba(107,15,26,0.12);
+  transform: translateY(-2px);
+}
+
+.giving__block-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.giving__block-icon {
+  font-size: 1.4rem;
+}
+
+.giving__block-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+}
+
+/* Mobile money list */
+.giving__momo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.giving__momo-item {
+  padding: 1rem 1.25rem;
+  background: rgba(253, 248, 244, 0.8);
+  border-radius: 0.875rem;
+  border: 1px solid rgba(107, 15, 26, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.giving__momo-network {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.3rem;
+}
+
+.giving__momo-number {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  letter-spacing: 0.04em;
+}
+
+.giving__momo-name {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  margin-top: 0.2rem;
+}
+
+/* Bank details */
+.giving__bank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.giving__bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.giving__bank-row:last-child {
+  border-bottom: none;
+}
+
+.giving__bank-row dt {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.giving__bank-row dd {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  text-align: right;
+}
+
+.giving__bank-number {
+  font-size: 1rem !important;
+  letter-spacing: 0.06em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .giving__layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
