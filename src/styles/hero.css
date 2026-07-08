@@ -291,10 +291,10 @@
     color: #f3e7c9;
   }
 
-  /* Push content well below the navbar pill */
+  /* Center content vertically on mobile */
   .hero__content {
-    justify-content: flex-end;
-    padding: 0 1.25rem 3.5rem;
+    justify-content: center;
+    padding: 6rem 1.25rem 3.5rem;
   }
 
   .hero__content-grid {
