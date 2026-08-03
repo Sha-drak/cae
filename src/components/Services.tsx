@@ -3,25 +3,18 @@ import hero1 from '../media/hero/hero1.webp'
 
 const serviceTimes = [
   {
+    day: 'Thursday',
+    title: 'Prayer Meeting',
+    time: '9:00 AM',
+    note: 'Join us in prayer and intercession',
+    icon: '🙏',
+  },
+  {
     day: 'Sunday',
     title: 'Sunday Worship Service',
-    time: '9:00 AM & 11:00 AM',
+    time: '9:00 AM',
     note: "Children's ministry available",
     icon: '🕊️',
-  },
-  {
-    day: 'Wednesday',
-    title: 'Midweek Bible Study',
-    time: '6:30 PM',
-    note: 'Deep-dive into the Word',
-    icon: '📖',
-  },
-  {
-    day: 'Friday',
-    title: 'Prayer & Intercession',
-    time: '7:00 PM',
-    note: 'Corporate prayer night',
-    icon: '🙏',
   },
 ]
 

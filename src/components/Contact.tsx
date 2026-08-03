@@ -8,7 +8,7 @@ const infoCards = [
     label: 'Address',
     content: (
       <p className="contact__info-text">
-        [Street Address]<br />[City, Region]<br />Ghana
+        Nkawkaw, Eastern Region<br />Ghana
       </p>
     ),
   },
@@ -38,9 +38,8 @@ const infoCards = [
     label: 'Service Times',
     content: (
       <p className="contact__info-text">
-        Sunday: 9:00 AM &amp; 11:00 AM<br />
-        Wednesday: 6:30 PM<br />
-        Friday: 7:00 PM
+        Thursday: Prayer Meeting at 9:00 AM<br />
+        Sunday: Service starts at 9:00 AM
       </p>
     ),
   },

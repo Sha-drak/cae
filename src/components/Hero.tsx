@@ -17,7 +17,7 @@ const slides: HeroSlide[] = [
   {
     image: hero3,
     title: 'A Place to Belong',
-    description: 'Experience genuine worship, meaningful connections, and a community that grows together in faith.',
+    description: 'The church is a place where God\'s power transforms lives and brings hope, healing, and freedom. Come worship with us and experience the peace, purpose, and victory found in Christ.',
     primary: 'Visit Sunday',
     secondary: 'Watch Sermons',
   },

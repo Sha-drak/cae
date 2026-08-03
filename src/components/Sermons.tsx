@@ -4,27 +4,20 @@ import '../styles/sermons.css'
 import { fadeUp, fadeIn, slideLeft, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
 const featuredSermon = {
-  youtubeId: 'dQw4w9WgXcQ',
+  youtubeId: 'Yp_Kr9T3d9I',
   title: 'Walking in His Purpose',
-  speaker: 'Pastor [Name]',
-  date: 'July 6, 2025',
+  speaker: 'Pastor OFOSU SAMPSON',
+  date: 'Featured Message',
   series: 'Kingdom Living',
 }
 
 const recentSermons = [
   {
-    youtubeId: 'dQw4w9WgXcQ',
-    title: 'The Power of Persistent Prayer',
-    speaker: 'Pastor [Name]',
-    date: 'June 29, 2025',
-    series: 'Kingdom Living',
-  },
-  {
-    youtubeId: 'dQw4w9WgXcQ',
-    title: 'Faith That Moves Mountains',
-    speaker: 'Minister [Name]',
-    date: 'June 22, 2025',
-    series: 'Unshakeable',
+    youtubeId: '7c123xyNyGo',
+    title: 'Sunday Worship Highlight',
+    speaker: 'Pastor OFOSU SAMPSON',
+    date: 'Recent Message',
+    series: 'Highlights',
   },
 ]
 
@@ -207,7 +200,7 @@ export default function Sermons() {
           variants={fadeIn}
         >
           <h3 className="sermons__recent-label">Recent Messages</h3>
-          <a href="https://www.youtube.com/@YourChannel" target="_blank" rel="noreferrer" className="sermons__view-all">
+          <a href="https://youtube.com/@c.a.e.i?si=xmjIm8BIT1ztV_n4" target="_blank" rel="noreferrer" className="sermons__view-all">
             View all →
           </a>
         </motion.div>

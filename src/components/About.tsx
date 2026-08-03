@@ -90,7 +90,7 @@ export default function About() {
               and grow."
             </motion.blockquote>
             <motion.p className="about__pastor-name" variants={fadeUp}>
-              — Pastor [Name], Lead Pastor
+              — Pastor OFOSU SAMPSON
             </motion.p>
             <motion.div variants={fadeUp}>
               <a href="#contact" className="btn btn--glass about__pastor-btn">
