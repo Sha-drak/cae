@@ -1,5 +1,18 @@
+.section--dark.sermons {
+  background: var(--clr-bg-soft);
+  color: var(--clr-text);
+}
+
 .sermons {
   padding: var(--section-py) 1.5rem;
+}
+
+.section--dark.sermons .section-title {
+  color: var(--clr-dark);
+}
+
+.section--dark.sermons .section-subtitle {
+  color: var(--clr-text-muted);
 }
 
 /* ── Featured sermon ── */
@@ -39,20 +52,20 @@
 .sermons__featured-title {
   font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clr-text);
   line-height: 1.2;
   margin-bottom: 0.5rem;
 }
 
 .sermons__featured-meta {
   font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--clr-text-muted);
   margin-bottom: 1.25rem;
 }
 
 .sermons__featured-desc {
   font-size: 0.98rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--clr-text-muted);
   line-height: 1.65;
   margin-bottom: 2rem;
 }
@@ -68,7 +81,7 @@
 .sermons__recent-label {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clr-dark);
 }
 
 .sermons__view-all {
@@ -91,8 +104,8 @@
 }
 
 .sermons__card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(107, 15, 26, 0.1);
   border-radius: var(--radius-card);
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition);
@@ -154,14 +167,14 @@
 .sermons__card-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--clr-text);
   line-height: 1.4;
   margin: 0.35rem 0 0.4rem;
 }
 
 .sermons__card-meta {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--clr-text-muted);
 }
 
 /* ── TikTok section ── */
@@ -178,8 +191,8 @@
 }
 
 .sermons__tiktok-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(107, 15, 26, 0.1);
   border-radius: var(--radius-card);
   overflow: hidden;
   display: flex;
@@ -219,7 +232,7 @@
 .sermons__tiktok-facade-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #1a0508 0%, #6b0f1a 100%);
+  background: linear-gradient(135deg, #1a0508 0%, #7b2c3a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -267,13 +280,13 @@
 .sermons__tiktok-caption {
   padding: 0.85rem 1rem;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.65);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  color: var(--clr-text-muted);
+  border-top: 1px solid rgba(107, 15, 26, 0.1);
 }
 
 .sermons__tiktok-note {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--clr-text-muted);
   margin-top: 0.5rem;
 }
 
