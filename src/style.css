@@ -10,7 +10,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Design tokens */
-  --clr-bg: #ffffff;
+  --clr-bg: #f3e7c9;
   --clr-bg-soft: #fdf8f4;
   --clr-bg-muted: #f7efe8;
   --clr-dark: #7b2c3a;          /* Softened wine red */
