@@ -3,16 +3,14 @@ import '../styles/giving.css'
 import { fadeUp, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
 const mobileMoney = [
-  { network: 'MTN Mobile Money', number: '024 000 0000', name: 'Christian Awareness Embassy' },
-  { network: 'Telecel Cash', number: '050 000 0000', name: 'Christian Awareness Embassy' },
-  { network: 'AirtelTigo Money', number: '026 000 0000', name: 'Christian Awareness Embassy' },
+  { network: 'MTN Mobile Money', number: '0559195400', name: 'Ofosu Sampson' },
 ]
 
 const bankDetails = {
-  bankName: 'GCB Bank Ghana',
-  accountName: 'Christian Awareness Embassy',
-  accountNumber: '1234567890',
-  branch: 'Main Branch',
+  bankName: 'Fidelity',
+  accountName: 'Ofosu Sampson',
+  accountNumber: '2030416065815',
+  branch: 'Nkawkaw',
 }
 
 export default function Giving() {

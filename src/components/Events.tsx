@@ -24,44 +24,68 @@ const events: Event[] = [
   },
   {
     category: 'Weekly',
-    title: 'Midweek Bible Study',
+    title: 'Youth Meeting',
+    day: 'Every Monday',
+    time: '6:30 PM to 8:00 PM',
+    frequency: 'Weekly',
+    description: 'Youth gathering for fellowship, worship, and spiritual growth.',
+  },
+  {
+    category: 'Weekly',
+    title: "Women's Fellowship",
+    day: 'Every Tuesday',
+    time: '6:30 PM to 8:00 PM',
+    frequency: 'Weekly',
+    description: 'Women gathering for fellowship, prayer, and the Word.',
+  },
+  {
+    category: 'Weekly',
+    title: 'Bible Studies',
     day: 'Every Wednesday',
-    time: '6:30 PM',
+    time: '6:30 PM to 8:00 PM',
     frequency: 'Weekly',
     description: 'An in-depth study of Scripture in a warm, interactive setting.',
   },
   {
     category: 'Weekly',
-    title: 'Corporate Prayer Meeting',
+    title: 'Morning Prayers',
+    day: 'Every Thursday',
+    time: '9:00 AM to 1:00 PM',
+    frequency: 'Weekly',
+    description: 'Corporate morning prayer for the church and community.',
+  },
+  {
+    category: 'Weekly',
+    title: 'Evening Prayers',
     day: 'Every Friday',
-    time: '7:00 PM',
+    time: '6:30 PM to 8:00 PM',
     frequency: 'Weekly',
     description: 'United prayer for the church, families, and the nation.',
   },
   {
     category: 'Special',
-    title: 'Annual Convention',
-    day: 'August 14–17, 2025',
-    time: '5:00 PM daily',
+    title: 'Easter Convention',
+    day: 'March/April',
+    time: 'TBA',
     frequency: 'Annual',
-    description: 'Our flagship annual gathering — powerful messages, worship, and fellowship.',
+    description: 'Special Easter gathering with powerful messages and worship.',
     highlight: true,
   },
   {
     category: 'Special',
-    title: 'Revival Services',
-    day: 'Last weekend of every month',
-    time: '6:00 PM',
-    frequency: 'Monthly',
-    description: 'Special nights of revival, healing, and spiritual renewal.',
+    title: 'Youth Week',
+    day: 'August',
+    time: 'TBA',
+    frequency: 'Annual',
+    description: 'A special week dedicated to youth activities and spiritual growth.',
   },
   {
     category: 'Special',
-    title: 'Youth Conference',
-    day: 'September 20–21, 2025',
-    time: '4:00 PM',
+    title: 'Christmas Convention',
+    day: 'December',
+    time: 'TBA',
     frequency: 'Annual',
-    description: 'A two-day gathering built to ignite the faith of young people.',
+    description: 'Christmas celebration with special programs and fellowship.',
   },
 ]
 
@@ -178,7 +202,7 @@ export default function Events() {
             Want to stay updated on all upcoming events?
           </p>
           <a
-            href="https://wa.me/233000000000"
+            href="https://wa.me/233536291063"
             target="_blank"
             rel="noreferrer"
             className="btn btn--outline-light"

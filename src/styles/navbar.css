@@ -8,14 +8,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  width: min(1120px, calc(100% - 3rem));
-  padding: 1.35rem 2rem;
-  border-radius: 1.75rem;
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  background: rgba(3, 6, 10, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255,255,255,0.06) inset;
+  width: min(1400px, calc(100% - 2rem));
+  padding: 1.5rem 2.5rem;
+  border-radius: 2rem;
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: rgba(3, 6, 10, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 2px 0 rgba(255,255,255,0.08) inset, 0 0 0 1px rgba(255,255,255,0.05) inset;
 }
 
 .navbar__logo {

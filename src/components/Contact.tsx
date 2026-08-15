@@ -17,8 +17,8 @@ const infoCards = [
     label: 'Phone',
     content: (
       <p className="contact__info-text">
-        <a href="tel:+233000000000">+233 00 000 0000</a><br />
-        <a href="tel:+233000000001">+233 00 000 0001</a>
+        <a href="tel:+233536291063">0536291063</a><br />
+        <a href="tel:+233207298835">0207298835</a>
       </p>
     ),
   },
@@ -86,7 +86,7 @@ export default function Contact() {
             ))}
 
             <motion.a
-              href="https://wa.me/233000000000"
+              href="https://wa.me/233536291063"
               target="_blank"
               rel="noreferrer"
               className="contact__whatsapp"
@@ -112,14 +112,20 @@ export default function Contact() {
           >
             <iframe
               title="Church location map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254508.11622637898!2d-0.30461309648580796!3d5.590957116498116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9084b2b7a773%3A0xbed14ed8650e2dd3!2sAccra%2C%20Ghana!5e0!3m2!1sen!2sgh!4v1700000000000!5m2!1sen!2sgh"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.843735949734!2d-0.7847166!3d6.5514169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNkawkaw%2C%20Ghana!5e0!3m2!1sen!2sgh!4v1700000000000!5m2!1sen!2sgh"
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             />
-            <p className="contact__map-note">
-              Update the map embed URL in <code>Contact.tsx</code> with your exact church location.
-            </p>
+            <a
+              href="https://maps.app.goo.gl/UvFJUtqLv64fpVfj7?g_st=aw"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn--primary"
+              style={{ marginTop: '1rem', display: 'inline-block' }}
+            >
+              Open in Google Maps
+            </a>
           </motion.div>
 
         </div>

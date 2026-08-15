@@ -14,7 +14,7 @@ const featuredSermon = {
 const recentSermons = [
   {
     youtubeId: '7c123xyNyGo',
-    title: 'Sunday Worship Highlight',
+    title: 'Sunday preaching Highlight',
     speaker: 'Pastor OFOSU SAMPSON',
     date: 'Recent Message',
     series: 'Highlights',
@@ -23,9 +23,9 @@ const recentSermons = [
 
 // Replace with actual TikTok embed video IDs
 const tiktokVideos = [
-  { id: '7659201547884039444', caption: 'Sunday Worship Highlight' },
+  { id: '7659201547884039444', caption: 'Special teachings' },
   { id: '7647192917429439765', caption: 'Mid-week Word' },
-  { id: '7639371730686856468', caption: 'Prayer Night' },
+  { id: '7639371730686856468', caption: 'word ministration' },
 ]
 
 function YoutubeThumbnail({ videoId, title }: { videoId: string; title: string }) {
@@ -138,8 +138,7 @@ export default function Sermons() {
           <span className="section-eyebrow">Messages</span>
           <h2 className="section-title">Watch &amp; Listen</h2>
           <p className="section-subtitle">
-            Missed a service? Every message is available for you to watch at your
-            own pace. Be encouraged, challenged, and built up in your faith.
+            Be encouraged, challenged, and built up in your faith. Click below to listen to Pastor Ofosu Sampson now!
           </p>
         </motion.div>
 
@@ -172,11 +171,6 @@ export default function Sermons() {
             <motion.h3 className="sermons__featured-title" variants={fadeUp}>{featuredSermon.title}</motion.h3>
             <motion.p className="sermons__featured-meta" variants={fadeUp}>
               {featuredSermon.speaker} &nbsp;·&nbsp; {featuredSermon.date}
-            </motion.p>
-            <motion.p className="sermons__featured-desc" variants={fadeUp}>
-              In this message, we explore what it truly means to walk in the purpose
-              God has prepared for each of us — and how to stay the course when
-              the journey gets difficult.
             </motion.p>
             <motion.div variants={fadeUp}>
               <a
@@ -258,9 +252,6 @@ export default function Sermons() {
               </motion.div>
             ))}
           </motion.div>
-          <p className="sermons__tiktok-note">
-            Videos load on tap — no impact on page load speed.
-          </p>
         </div>
 
       </div>
