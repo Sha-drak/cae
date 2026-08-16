@@ -1,0 +1,129 @@
+.install-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  width: min(400px, calc(100% - 2rem));
+}
+
+.install-toast__content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(3, 6, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+.install-toast__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, rgba(245, 239, 232, 0.1), rgba(245, 239, 232, 0.05));
+  border-radius: 0.75rem;
+  color: rgba(245, 239, 232, 0.9);
+  flex-shrink: 0;
+}
+
+.install-toast__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.install-toast__title {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f5efe8;
+  line-height: 1.3;
+}
+
+.install-toast__description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(245, 239, 232, 0.7);
+  line-height: 1.4;
+}
+
+.install-toast__install {
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, #f5efe8, #e8e0d5);
+  color: #03060a;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.install-toast__install:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 239, 232, 0.2);
+}
+
+.install-toast__install:active {
+  transform: translateY(0);
+}
+
+.install-toast__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: rgba(245, 239, 232, 0.5);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.install-toast__dismiss:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 239, 232, 0.8);
+}
+
+.install-toast__dismiss:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 760px) {
+  .install-toast {
+    bottom: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .install-toast__content {
+    padding: 1rem 1.25rem;
+    gap: 0.875rem;
+  }
+
+  .install-toast__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .install-toast__title {
+    font-size: 0.9rem;
+  }
+
+  .install-toast__description {
+    font-size: 0.8rem;
+  }
+
+  .install-toast__install {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}

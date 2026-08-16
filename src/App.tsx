@@ -7,6 +7,7 @@ import Ministries from './components/Ministries'
 import Giving from './components/Giving'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import InstallToast from './components/InstallToast'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Giving />
       <Contact />
       <Footer />
+      <InstallToast />
     </div>
   )
 }
