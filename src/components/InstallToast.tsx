@@ -51,19 +51,23 @@ export default function InstallToast() {
   }, [deferredPrompt])
 
   const handleInstall = async () => {
-    if (!deferredPrompt) {
-      return
+    if (deferredPrompt) {
+      // Real PWA install prompt available
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+
+      if (outcome === 'accepted') {
+        localStorage.setItem('pwa-installed', 'true')
+      }
+
+      setDeferredPrompt(null)
+      setShowToast(false)
+    } else {
+      // Testing mode - show manual install instructions
+      alert('To install this app:\n\nDesktop: Click the install icon in your browser address bar\n\nMobile: Use "Add to Home Screen" from your browser menu')
+      setShowToast(false)
+      localStorage.setItem('pwa-install-dismissed', 'true')
     }
-
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-
-    if (outcome === 'accepted') {
-      localStorage.setItem('pwa-installed', 'true')
-    }
-
-    setDeferredPrompt(null)
-    setShowToast(false)
   }
 
   const handleDismiss = () => {
