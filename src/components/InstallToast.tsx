@@ -26,10 +26,19 @@ export default function InstallToast() {
       return
     }
 
+    // Check if service worker is registered
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        console.log('Service worker registration:', registration)
+      })
+    } else {
+      console.log('Service worker not supported')
+    }
+
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
-      console.log('Install prompt detected')
+      console.log('Install prompt detected:', e)
       // Show toast after a short delay
       setTimeout(() => setShowToast(true), 2000)
     }
@@ -39,7 +48,8 @@ export default function InstallToast() {
     // Show toast after 3 seconds if no install prompt detected (for testing)
     const testTimeout = setTimeout(() => {
       if (!deferredPrompt) {
-        console.log('Showing toast for testing')
+        console.log('No install prompt detected, showing toast for testing')
+        console.log('Service worker active:', navigator.serviceWorker?.controller)
         setShowToast(true)
       }
     }, 3000)
