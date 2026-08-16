@@ -36,19 +36,10 @@ export default function InstallToast() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstall)
 
-    // For testing: show toast after 5 seconds if no install prompt detected
-    const testTimeout = setTimeout(() => {
-      if (!deferredPrompt) {
-        console.log('Testing mode: showing toast without install prompt')
-        setShowToast(true)
-      }
-    }, 5000)
-
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
-      clearTimeout(testTimeout)
     }
-  }, [deferredPrompt])
+  }, [])
 
   const handleInstall = async () => {
     if (deferredPrompt) {
