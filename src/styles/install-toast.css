@@ -1,10 +1,11 @@
 .install-toast {
   position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  left: 1rem;
+  right: 1rem;
+  margin-inline: auto;
   z-index: 10000;
-  width: min(400px, calc(100% - 2rem));
+  max-width: 26rem;
 }
 
 .install-toast__content {
@@ -100,8 +101,8 @@
 
 @media (max-width: 760px) {
   .install-toast {
-    bottom: 1rem;
-    width: calc(100% - 2rem);
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    max-width: none;
   }
 
   .install-toast__content {
