@@ -15,7 +15,7 @@ export default defineConfig({
         short_name: 'CAE',
         description: 'Raising a generation of believers who know God, walk in His word, and impact their world for Christ.',
         theme_color: '#03060a',
-        background_color: '#03060a',
+        background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait-primary',
         icons: [
