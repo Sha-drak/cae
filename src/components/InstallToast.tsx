@@ -7,74 +7,69 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
+let deferredPrompt: BeforeInstallPromptEvent | null = null
+const listeners = new Set<(prompt: BeforeInstallPromptEvent | null) => void>()
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault()
+  deferredPrompt = e as BeforeInstallPromptEvent
+  listeners.forEach((notify) => notify(deferredPrompt))
+})
+
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null
+  localStorage.setItem('pwa-installed', 'true')
+  listeners.forEach((notify) => notify(null))
+})
+
+function isStandalone() {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    (navigator as Navigator & { standalone?: boolean }).standalone === true
+  )
+}
+
 export default function InstallToast() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(deferredPrompt)
   const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
-    // Check if already dismissed
     const dismissed = localStorage.getItem('pwa-install-dismissed')
-    if (dismissed) {
-      console.log('Toast already dismissed')
+    if (dismissed || isStandalone()) {
       return
     }
 
-    // Check if already installed
-    const isInstalled = localStorage.getItem('pwa-installed')
-    if (isInstalled) {
-      console.log('App already installed')
-      return
-    }
+    const sync = (prompt: BeforeInstallPromptEvent | null) => setInstallPrompt(prompt)
+    listeners.add(sync)
+    sync(deferredPrompt)
 
-    // Check if service worker is registered
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistration().then((registration) => {
-        console.log('Service worker registration:', registration)
-      })
-    } else {
-      console.log('Service worker not supported')
-    }
-
-    const handleBeforeInstall = (e: Event) => {
-      e.preventDefault()
-      setDeferredPrompt(e as BeforeInstallPromptEvent)
-      console.log('Install prompt detected:', e)
-      // Show toast after a short delay
-      setTimeout(() => setShowToast(true), 2000)
-    }
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstall)
-
-    // Show toast after 3 seconds if no install prompt detected (for testing)
-    const testTimeout = setTimeout(() => {
-      if (!deferredPrompt) {
-        console.log('No install prompt detected, showing toast for testing')
-        console.log('Service worker active:', navigator.serviceWorker?.controller)
-        setShowToast(true)
-      }
-    }, 3000)
+    const timer = setTimeout(() => setShowToast(true), 3000)
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
-      clearTimeout(testTimeout)
+      listeners.delete(sync)
+      clearTimeout(timer)
     }
-  }, [deferredPrompt])
+  }, [])
 
   const handleInstall = async () => {
-    if (deferredPrompt) {
-      // Real PWA install prompt available
-      deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
+    if (installPrompt) {
+      await installPrompt.prompt()
+      const { outcome } = await installPrompt.userChoice
 
       if (outcome === 'accepted') {
         localStorage.setItem('pwa-installed', 'true')
       }
 
-      setDeferredPrompt(null)
+      deferredPrompt = null
+      setInstallPrompt(null)
       setShowToast(false)
     } else {
-      // Testing mode - show manual install instructions
-      alert('To install this app:\n\nDesktop: Click the install icon in your browser address bar\n\nMobile: Use "Add to Home Screen" from your browser menu')
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+      alert(
+        isIOS
+          ? 'To install this app: Tap the Share button in Safari, then choose "Add to Home Screen"'
+          : 'To install this app, use the install icon in your browser address bar'
+      )
       setShowToast(false)
       localStorage.setItem('pwa-install-dismissed', 'true')
     }

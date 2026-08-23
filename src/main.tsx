@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './style.css'
 
-// Register service worker for PWA
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    if (import.meta.env.DEV) {
+      const existing = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(existing.map((r) => r.unregister()))
+    }
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope)
