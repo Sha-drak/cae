@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import '../styles/footer.css'
 import { fadeUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
 
@@ -103,6 +104,9 @@ export default function Footer() {
       <div className="footer__bottom">
         <p>© {new Date().getFullYear()} Christian Awareness Embassy. All rights reserved.</p>
         <p>Built with faith &amp; purpose.</p>
+        <Link to="/admin/login" className="footer__staff-link">
+          Staff Login
+        </Link>
       </div>
     </footer>
   )

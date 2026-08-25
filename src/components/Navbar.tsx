@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/navbar.css'
 
 const navLinks = [
@@ -38,6 +39,9 @@ export default function Navbar() {
             {link.label}
           </a>
         ))}
+        <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>
+          Albums
+        </Link>
       </nav>
     </header>
   )

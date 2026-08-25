@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import '../styles/sermons.css'
 import { fadeUp, fadeIn, slideLeft, scaleUp, staggerContainer, viewport } from '../hooks/useScrollAnimation'
+import { fetchSiteVideos } from '../lib/api'
+import type { SiteVideoRow } from '../lib/database.types'
 
-const featuredSermon = {
+const featuredSermonDefault = {
   youtubeId: 'Yp_Kr9T3d9I',
   title: 'Walking in His Purpose',
   speaker: 'Pastor OFOSU SAMPSON',
@@ -11,7 +13,7 @@ const featuredSermon = {
   series: 'Kingdom Living',
 }
 
-const recentSermons = [
+const recentSermonsDefault = [
   {
     youtubeId: '7c123xyNyGo',
     title: 'Sunday preaching Highlight',
@@ -21,12 +23,63 @@ const recentSermons = [
   },
 ]
 
-// Replace with actual TikTok embed video IDs
-const tiktokVideos = [
+const tiktokVideosDefault = [
   { id: '7659201547884039444', caption: 'Special teachings' },
   { id: '7647192917429439765', caption: 'Mid-week Word' },
   { id: '7639371730686856468', caption: 'word ministration' },
 ]
+
+type FeaturedSermon = typeof featuredSermonDefault
+type RecentSermon = RecentSermonItem
+interface RecentSermonItem {
+  youtubeId: string
+  title: string
+  speaker: string
+  date: string
+  series: string
+}
+type TikTokVideo = { id: string; caption: string }
+
+function mapVideos(rows: SiteVideoRow[]): {
+  featured: FeaturedSermon
+  recents: RecentSermon[]
+  tiktoks: TikTokVideo[]
+} {
+  const featuredRow = rows.find((v) => v.kind === 'youtube' && v.slot === 'featured')
+  const recentRows = rows
+    .filter((v) => v.kind === 'youtube' && v.slot === 'recent')
+    .sort((a, b) => a.position - b.position)
+  const shortRows = rows
+    .filter((v) => v.kind === 'tiktok' && v.slot === 'short')
+    .sort((a, b) => a.position - b.position)
+
+  return {
+    featured: featuredRow
+      ? {
+          youtubeId: featuredRow.video_id,
+          title: featuredRow.title ?? featuredSermonDefault.title,
+          speaker: featuredRow.speaker ?? featuredSermonDefault.speaker,
+          date: 'Featured Message',
+          series: featuredRow.series ?? featuredSermonDefault.series,
+        }
+      : featuredSermonDefault,
+    recents: recentRows.length
+      ? recentRows.map((row) => ({
+          youtubeId: row.video_id,
+          title: row.title ?? 'Recent Message',
+          speaker: row.speaker ?? '',
+          date: 'Recent Message',
+          series: row.series ?? 'Highlights',
+        }))
+      : recentSermonsDefault,
+    tiktoks: shortRows.length
+      ? shortRows.map((row) => ({
+          id: row.video_id,
+          caption: row.caption ?? '',
+        }))
+      : tiktokVideosDefault,
+  }
+}
 
 function YoutubeThumbnail({ videoId, title }: { videoId: string; title: string }) {
   return (
@@ -123,6 +176,28 @@ function TikTokFacade({ id, caption }: { id: string; caption: string }) {
 }
 
 export default function Sermons() {
+  const [featuredSermon, setFeaturedSermon] = useState<FeaturedSermon>(featuredSermonDefault)
+  const [recentSermons, setRecentSermons] = useState<RecentSermon[]>(recentSermonsDefault)
+  const [tiktokVideos, setTiktokVideos] = useState<TikTokVideo[]>(tiktokVideosDefault)
+
+  useEffect(() => {
+    let active = true
+
+    async function load() {
+      const rows = await fetchSiteVideos()
+      if (!active || !rows || rows.length === 0) return
+      const mapped = mapVideos(rows)
+      setFeaturedSermon(mapped.featured)
+      setRecentSermons(mapped.recents)
+      setTiktokVideos(mapped.tiktoks)
+    }
+
+    load()
+    return () => {
+      active = false
+    }
+  }, [])
+
   return (
     <section className="section section--dark sermons" id="sermons">
       <div className="section__inner">
