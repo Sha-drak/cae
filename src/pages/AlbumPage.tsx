@@ -136,9 +136,6 @@ export default function AlbumPage() {
           ) : (
             <>
               <div className="ios-gallery__toolbar">
-                <span className="ios-gallery__count" aria-live="polite">
-                  {photos.length} {photos.length === 1 ? 'photo' : 'photos'}
-                </span>
                 <div className="ios-gallery__tools">
                   <button
                     type="button"
