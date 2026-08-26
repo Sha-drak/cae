@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { TouchEvent } from 'react'
 import type { PhotoRow } from '../../lib/database.types'
 import { photoPublicUrl } from '../../lib/supabaseClient'
 import { downloadFileFromUrl } from '../../lib/download'
@@ -10,8 +11,12 @@ interface LightboxProps {
   onNavigate: (index: number) => void
 }
 
+const SWIPE_THRESHOLD = 48
+const CLOSE_SWIPE_DISTANCE = 110
+
 export default function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
   const [downloading, setDownloading] = useState(false)
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
   const photo = photos[index]
 
   const goPrev = useCallback(() => {
@@ -36,6 +41,30 @@ export default function Lightbox({ photos, index, onClose, onNavigate }: Lightbo
     }
   }, [onClose, goPrev, goNext])
 
+  function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
+    if (event.touches.length !== 1) return
+    const touch = event.touches[0]
+    touchStart.current = { x: touch.clientX, y: touch.clientY }
+  }
+
+  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    const start = touchStart.current
+    touchStart.current = null
+    if (!start || event.changedTouches.length === 0) return
+    const touch = event.changedTouches[0]
+    const dx = touch.clientX - start.x
+    const dy = touch.clientY - start.y
+
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (dx < 0) goNext()
+      else goPrev()
+      return
+    }
+    if (dy > CLOSE_SWIPE_DISTANCE && Math.abs(dx) < 70) {
+      onClose()
+    }
+  }
+
   if (!photo) return null
 
   async function handleDownload() {
@@ -51,7 +80,14 @@ export default function Lightbox({ photos, index, onClose, onNavigate }: Lightbo
   }
 
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div
+      className="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <button type="button" className="lightbox__backdrop" onClick={onClose} aria-label="Close viewer" />
       <div className="lightbox__topbar">
         <span className="lightbox__counter">

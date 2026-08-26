@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import SiteHeader from '../components/gallery/SiteHeader'
-import PhotoGrid from '../components/gallery/PhotoGrid'
+import PhotoGrid, {
+  ZOOM_ORDER,
+  readStoredZoom,
+  type ZoomLevel,
+} from '../components/gallery/PhotoGrid'
 import Lightbox from '../components/gallery/Lightbox'
 import { fetchAlbumBySlug, fetchAlbumPhotos } from '../lib/api'
 import type { AlbumRow, PhotoRow } from '../lib/database.types'
@@ -18,6 +22,7 @@ export default function AlbumPage() {
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [zoom, setZoom] = useState<ZoomLevel>(readStoredZoom)
   const [zipState, setZipState] = useState<{ busy: boolean; done: number; total: number; error: string | null }>({
     busy: false,
     done: 0,
@@ -54,6 +59,14 @@ export default function AlbumPage() {
       active = false
     }
   }, [slug])
+
+  function stepZoom(direction: 1 | -1) {
+    setZoom((current) => {
+      const index = ZOOM_ORDER.indexOf(current)
+      const nextIndex = Math.min(ZOOM_ORDER.length - 1, Math.max(0, index + direction))
+      return ZOOM_ORDER[nextIndex]
+    })
+  }
 
   async function handleDownloadAll() {
     if (!album || photos.length === 0 || zipState.busy) return
@@ -113,32 +126,61 @@ export default function AlbumPage() {
           </Link>
 
           <div className="gallery__album-header">
-            <h2 className="section-title">{album.title}</h2>
-            <p className="section-subtitle">
-              {formatDate(album.event_date)} · {photos.length}{' '}
-              {photos.length === 1 ? 'photo' : 'photos'}
-            </p>
+            <p className="gallery__kicker">{formatDate(album.event_date)}</p>
+            <h1 className="gallery__album-title">{album.title}</h1>
             {album.description && <p className="gallery__description">{album.description}</p>}
-            {photos.length > 0 && (
-              <button type="button" className="btn btn--glass gallery__download-all" onClick={handleDownloadAll} disabled={zipState.busy}>
-                {zipState.busy
-                  ? `Preparing zip… ${zipState.done}/${zipState.total}`
-                  : `Download all (${Math.min(photos.length, ZIP_PHOTO_SOFT_CAP)})`}
-              </button>
-            )}
-            {zipState.error && <p className="gallery__status">{zipState.error}</p>}
-            {photos.length > ZIP_PHOTO_SOFT_CAP && !zipState.busy && (
-              <p className="gallery__hint">
-                Large album — the zip includes the first {ZIP_PHOTO_SOFT_CAP} photos. Use the
-                download button in the photo viewer for the rest.
-              </p>
-            )}
           </div>
 
           {photos.length === 0 ? (
             <p className="gallery__status">No photos in this album yet.</p>
           ) : (
-            <PhotoGrid photos={photos} onOpen={(index) => setLightboxIndex(index)} />
+            <>
+              <div className="ios-gallery__toolbar">
+                <span className="ios-gallery__count" aria-live="polite">
+                  {photos.length} {photos.length === 1 ? 'photo' : 'photos'}
+                </span>
+                <div className="ios-gallery__tools">
+                  <button
+                    type="button"
+                    className="ios-gallery__zoom-btn"
+                    onClick={() => stepZoom(-1)}
+                    disabled={zoom === 'sm'}
+                    aria-label="Smaller thumbnails"
+                    title="More photos per screen"
+                  >
+                    −
+                  </button>
+                  <button
+                    type="button"
+                    className="ios-gallery__zoom-btn"
+                    onClick={() => stepZoom(1)}
+                    disabled={zoom === 'lg'}
+                    aria-label="Larger thumbnails"
+                    title="Bigger thumbnails"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--glass btn--small gallery__download-all"
+                    onClick={handleDownloadAll}
+                    disabled={zipState.busy}
+                  >
+                    {zipState.busy
+                      ? `Preparing zip… ${zipState.done}/${zipState.total}`
+                      : `Download all (${Math.min(photos.length, ZIP_PHOTO_SOFT_CAP)})`}
+                  </button>
+                </div>
+              </div>
+              {zipState.error && <p className="gallery__status">{zipState.error}</p>}
+              {photos.length > ZIP_PHOTO_SOFT_CAP && !zipState.busy && (
+                <p className="gallery__hint">
+                  Large album — the zip includes the first {ZIP_PHOTO_SOFT_CAP} photos. Use the
+                  download button in the photo viewer for the rest.
+                </p>
+              )}
+              <PhotoGrid photos={photos} zoom={zoom} onZoomChange={setZoom} onOpen={(index) => setLightboxIndex(index)} />
+            </>
           )}
         </div>
       </main>

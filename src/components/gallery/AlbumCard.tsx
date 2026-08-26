@@ -26,7 +26,7 @@ export default function AlbumCard({ album }: { album: AlbumWithCover }) {
       <Link to={`/gallery/${album.slug}`} className="album-card">
         <div className="album-card__img-wrap">
           {url ? (
-            <img src={url} alt={album.title} className="album-card__img" loading="lazy" />
+            <img src={url} alt="" className="album-card__img" loading="lazy" />
           ) : (
             <div className="album-card__placeholder" aria-hidden="true">
               <svg width="42" height="42" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)">
@@ -34,13 +34,14 @@ export default function AlbumCard({ album }: { album: AlbumWithCover }) {
               </svg>
             </div>
           )}
+          <span className="album-card__scrim" aria-hidden="true" />
           <span className="album-card__count" aria-label={`${album.photo_count} photos`}>
             {album.photo_count} {album.photo_count === 1 ? 'photo' : 'photos'}
           </span>
-        </div>
-        <div className="album-card__body">
-          <h3 className="album-card__title">{album.title}</h3>
-          <p className="album-card__date">{formatDate(album.event_date)}</p>
+          <span className="album-card__overlay" aria-hidden="false">
+            <h3 className="album-card__title">{album.title}</h3>
+            <p className="album-card__date">{formatDate(album.event_date)}</p>
+          </span>
         </div>
       </Link>
     </motion.div>

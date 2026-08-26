@@ -27,6 +27,7 @@ export default function AlbumEditPage() {
   const [savingForm, setSavingForm] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [confirmDeleteAlbum, setConfirmDeleteAlbum] = useState(false)
+  const [deletingAlbum, setDeletingAlbum] = useState(false)
   const positionRef = useRef(0)
 
   useEffect(() => {
@@ -127,15 +128,45 @@ export default function AlbumEditPage() {
     }
   }
 
+  async function handleBulkDelete(photoIds: string[]) {
+    const targets = photos.filter((p) => photoIds.includes(p.id))
+    const okIds = new Set<string>()
+    let failedCount = 0
+    const CHUNK_SIZE = 5
+
+    for (let i = 0; i < targets.length; i += CHUNK_SIZE) {
+      const chunk = targets.slice(i, i + CHUNK_SIZE)
+      const results = await Promise.allSettled(chunk.map((photo) => deletePhoto(photo)))
+      chunk.forEach((photo, j) => {
+        if (results[j].status === 'fulfilled') okIds.add(photo.id)
+        else failedCount++
+      })
+      if (okIds.size > 0) {
+        setPhotos((current) => current.filter((p) => !okIds.has(p.id)))
+      }
+    }
+
+    if (album?.cover_photo_id && okIds.has(album.cover_photo_id)) {
+      await updateAlbum(album.id, { cover_photo_id: null })
+    }
+    if (failedCount > 0) {
+      setFormError(
+        `Could not delete ${failedCount} photo${failedCount === 1 ? '' : 's'}. They are still shown below — please retry.`
+      )
+    }
+  }
+
   const handleUploaded = useCallback((photo: PhotoRow) => {
     positionRef.current = Math.max(positionRef.current, photo.position + 1)
     setPhotos((current) => [...current, photo])
   }, [])
 
   async function handleDeleteAlbum() {
-    if (!album) return
+    if (!album || deletingAlbum) return
+    setDeletingAlbum(true)
     setConfirmDeleteAlbum(false)
     const { error } = await deleteAlbumWithPhotos(album.id)
+    setDeletingAlbum(false)
     if (error) {
       setFormError(error.message)
       return
@@ -208,46 +239,26 @@ export default function AlbumEditPage() {
         </p>
       )}
 
-      <div className="editor__grid">
-        <section className="card">
-          <h2>Album details</h2>
-          <AlbumForm
-            initialValues={{
-              title: album.title,
-              event_date: album.event_date,
-              description: album.description ?? '',
-            }}
-            busy={savingForm}
-            submitLabel="Save details"
-            onSubmit={handleSaveDetails}
-          />
-          {album.slug && <p className="editor__slug">Public address: /gallery/{album.slug}</p>}
-        </section>
-
-        <section className="card">
-          <h2>Danger zone</h2>
-          <p>Deleting removes the album and all of its photos permanently.</p>
-          {confirmDeleteAlbum ? (
-            <div className="editor__confirm-row">
-              <button type="button" className="btn btn--danger" onClick={handleDeleteAlbum}>
-                Yes, delete everything
-              </button>
-              <button type="button" className="btn btn--ghost" onClick={() => setConfirmDeleteAlbum(false)}>
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <button type="button" className="btn btn--danger-ghost" onClick={() => setConfirmDeleteAlbum(true)}>
-              Delete this album
-            </button>
-          )}
-        </section>
-      </div>
+      <section className="card">
+        <h2>Album details</h2>
+        <AlbumForm
+          initialValues={{
+            title: album.title,
+            event_date: album.event_date,
+            description: album.description ?? '',
+          }}
+          busy={savingForm}
+          submitLabel="Save details"
+          onSubmit={handleSaveDetails}
+        />
+        {album.slug && <p className="editor__slug">Public address: /gallery/{album.slug}</p>}
+      </section>
 
       <section className="card editor__photos-card">
         <h2>Photos ({photos.length})</h2>
         <p className="dashboard__sub">
-          Drag photos to reorder · ★ sets the cover · 🗑 deletes. Changes apply immediately.
+          Drag photos to reorder · ★ sets the cover · 🗑 deletes. Long-press a photo or use
+          Select to delete several at once.
         </p>
 
         <PhotoUploader albumId={album.id} nextPosition={() => positionRef.current} onUploaded={handleUploaded} />
@@ -258,7 +269,37 @@ export default function AlbumEditPage() {
           onReorder={handleReorder}
           onSetCover={handleSetCover}
           onDelete={handleDeletePhoto}
+          onBulkDelete={handleBulkDelete}
         />
+      </section>
+
+      <section className="card card--danger-zone">
+        <h2>Danger zone</h2>
+        <p>Deleting removes the album and all of its photos permanently. This cannot be undone.</p>
+        {confirmDeleteAlbum ? (
+          <div className="editor__confirm-row" role="alertdialog" aria-label="Confirm album deletion">
+            <button
+              type="button"
+              className="btn btn--danger"
+              onClick={handleDeleteAlbum}
+              disabled={deletingAlbum}
+            >
+              {deletingAlbum ? 'Deleting…' : 'Yes, delete everything'}
+            </button>
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => setConfirmDeleteAlbum(false)}
+              disabled={deletingAlbum}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <button type="button" className="btn btn--danger-ghost" onClick={() => setConfirmDeleteAlbum(true)}>
+            Delete this album
+          </button>
+        )}
       </section>
     </div>
   )
