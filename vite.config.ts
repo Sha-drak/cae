@@ -2,6 +2,15 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api/tiktok-oembed': {
+        target: 'https://www.tiktok.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace('/api/tiktok-oembed', '/oembed'),
+      },
+    },
+  },
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',

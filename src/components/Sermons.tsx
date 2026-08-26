@@ -108,27 +108,39 @@ function YoutubeThumbnail({ videoId, title }: { videoId: string; title: string }
   )
 }
 
+const tiktokThumbCache = new Map<string, string>()
+
 /**
- * TikTokFacade — fetches the real thumbnail from TikTok's oEmbed API,
- * shows it as a clickable preview. The actual iframe only loads on click.
- * This gives users the visual hook without blocking page load.
+ * TikTokFacade — fetches the real thumbnail via our own /api/tiktok-oembed
+ * proxy (TikTok's oEmbed endpoint has no CORS headers and rate-limits
+ * direct browser calls). The iframe only loads on click, so page load stays fast.
  */
 function TikTokFacade({ id, caption }: { id: string; caption: string }) {
   const [activated, setActivated] = useState(false)
-  const [thumb, setThumb] = useState<string | null>(null)
+  const [thumb, setThumb] = useState<string | null>(() => tiktokThumbCache.get(id) ?? null)
 
-  // Fetch the real thumbnail once via oEmbed — lightweight JSON call, no iframe
   useEffect(() => {
-    const url = `https://www.tiktok.com/oembed?url=https://www.tiktok.com/@c.a.e.i2/video/${id}`
-    fetch(url)
-      .then((r) => r.json())
+    if (thumb) return
+    let cancelled = false
+
+    const videoUrl = `https://www.tiktok.com/@c.a.e.i2/video/${id}`
+    fetch(`/api/tiktok-oembed?url=${encodeURIComponent(videoUrl)}`)
+      .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data.thumbnail_url) setThumb(data.thumbnail_url)
+        const thumbUrl: string | undefined = data?.thumbnail_url
+        if (!cancelled && thumbUrl) {
+          tiktokThumbCache.set(id, thumbUrl)
+          setThumb(thumbUrl)
+        }
       })
       .catch(() => {
-        // oEmbed failed — fallback to branded placeholder, no problem
+        // proxy unavailable — branded placeholder stays, no problem
       })
-  }, [id])
+
+    return () => {
+      cancelled = true
+    }
+  }, [id, thumb])
 
   if (activated) {
     return (
