@@ -45,7 +45,10 @@ export default function AlbumEditPage() {
       if (!active) return
       setAlbum(albumData)
       setPhotos(photoData ?? [])
-      positionRef.current = photoData?.length ?? 0
+      const maxPosition = photoData && photoData.length > 0 
+        ? Math.max(...photoData.map(p => p.position)) 
+        : -1
+      positionRef.current = maxPosition + 1
       setLoading(false)
     }
 
@@ -125,7 +128,7 @@ export default function AlbumEditPage() {
   }
 
   const handleUploaded = useCallback((photo: PhotoRow) => {
-    positionRef.current += 1
+    positionRef.current = Math.max(positionRef.current, photo.position + 1)
     setPhotos((current) => [...current, photo])
   }, [])
 

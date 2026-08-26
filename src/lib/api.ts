@@ -179,6 +179,7 @@ export async function uploadPhoto(
   const { error, data } = insertResult
   if (error || !data) {
     await supabase.storage.from('photos').remove([storagePath, thumbPath])
+    console.error('Photo insert error:', error, { albumId, position, storagePath })
     throw error ?? new Error('Photo row could not be saved')
   }
   return data as unknown as PhotoRow

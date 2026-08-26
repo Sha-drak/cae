@@ -40,12 +40,17 @@ export default function PhotoUploader({ albumId, nextPosition, onUploaded }: Pho
     setTasks((current) => [...newTasks, ...current])
     setBusy(true)
 
+    const startPos = nextPosition()
+    console.log('Starting position:', startPos, 'for', files.length, 'files')
+    const filesWithPositions = files.map((file, index) => ({ file, position: startPos + index }))
+    console.log('Assigned positions:', filesWithPositions.map(f => ({ name: f.file.name, position: f.position })))
+
     let cursor = 0
 
     async function worker() {
-      while (cursor < files.length) {
+      while (cursor < filesWithPositions.length) {
         const index = cursor++
-        const file = files[index]
+        const { file, position } = filesWithPositions[index]
         const task = newTasks[index]
         updateTask(task.id, { status: 'working' })
         try {
@@ -53,7 +58,7 @@ export default function PhotoUploader({ albumId, nextPosition, onUploaded }: Pho
             throw new Error('Only JPG, PNG, or WebP images are allowed')
           }
           const prepared = await prepareImage(file)
-          const photo = await uploadPhoto(albumId, nextPosition(), prepared)
+          const photo = await uploadPhoto(albumId, position, prepared)
           updateTask(task.id, { status: 'done' })
           onUploaded(photo)
         } catch (error) {
